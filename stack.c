@@ -2,92 +2,94 @@
 #include <stdlib.h>
 #include <string.h>
 
-/*    
-    Este código manipula uma stack.
-    Inserção de valores "Push"
-    Remoção de valores "Pop"
-*/
+/***********************************************************
+ *      
+ *  This prog use the strategy last in first out (lifo),
+ *  In this case, stack have 10 positions [0...9],
+ *  Insert the intiger value in the header stack with the method Push() if the header is less than 10 (full),
+ *  Remove the last stack value with the method Pop() until the header until it's 0 (empty).
+ *
+ * *************/
 
-// variáveis globais
+// global vars
 int array[10];
-int tamanho = 10;
-int topo = 0;
+int with = 10;
+int header = 0;
 
-// le valor a inserir na stack
-int lerValor()
+// Read value to insert
+int readValue()
 {
-    int valor;
+    int value;
 
-    printf("\nInsira valor: ");
-    scanf("%d", &valor);
+    printf("\nInsert value: ");
+    scanf("%d", &value);
 
-    // retorna valor lido
-    return valor;
+    return value;
 }
 
-// inser valor no topo da stack
+// insert value
 void push()
 {    
-    int valor;
-    // verifica se a stack está vazia ou se está cheia e caso não cumpra um dos dois teste, adiciona o valor à stack
-   if (topo >= tamanho)
-        printf("\n\n * A stack está cheia!!!\n\n");        
+    int value;
+    
+    // if stack full
+    if (header >= with)
+        printf("\n\n * The stack is full!!!\n\n");        
     else
     {
-        valor = lerValor();
-        array[topo] = valor;
-        topo++;
+        value = readValue();
+        array[header] = value;
+        header++;
     }
 }
 
-// remove valor do topo da stack
+// Remove value from the stack header
 void pop()
 {
-    // verifica se a stack está vazia, caso não esteja remove valor do topo
-    if (topo > 0)
+    // if header is more than 0 (not empty)
+    if (header > 0)
     {
-        topo--;
-        printf("\n\n * Valor removido do topo da stack!!!\n\n"); 
+        header--;
+        printf("\n\n * Deleted value of the stack header!!!\n\n"); 
     }        
     else
-       printf("\n\n * A stack está vazia!!!\n\n"); 
+       printf("\n\n * The stack is empty!!!\n\n"); 
 }
 
-void mostrarStack()
+// show the stack values
+void showStack()
 {
     printf("\n\n[ ");
-    for (int i = 0; i < topo; i++)
+    for (int i = 0; i < header; i++)
     {
         printf("  %d  ", array[i]);
     }
     printf(" ]\n\n");
 }
 
-// método para mostrar menu de opções
-int mostrarMenu()
+// Show menu options
+int showMenu()
 {
-    int opcao;
- 
-    // mostrar valores
-    printf("Insira o num(1) para inserir novo valor\n");
-    printf("Insira o num(2) para remover valor\n");
-    printf("Insira valor diferente para sair\n");   
-    printf("Opcao: ");                     
-    scanf("%d", &opcao);
+    int option;
 
-    // retorna valore escolhido
-    return opcao;
+    printf("Insert num(1) to insert new value\n");
+    printf("Insert num(2) to delete value\n");
+    printf("Insert num(3) to show the stack values\n");   
+    printf("Insert another num exit\n");       
+    printf("option: ");                     
+    scanf("%d", &option);
+
+    return option;
 }
 
-// método para controlar opções do utilizador
-int controladorDeOpcoes()
+// switch the user options
+int controllerOptions()
 {
-    int opcao;
+    int option;
 
-    opcao = mostrarMenu();
+    option = showMenu();
 
-    // decisão da opção
-    switch(opcao)
+    switch(option)
     {
         case 1:
         {
@@ -101,37 +103,31 @@ int controladorDeOpcoes()
         }
         case 3:
         {
-            mostrarStack();
+            showStack();
             break;
         }
         default:
         {
-            opcao = 0;
+            option = 0;
             break;
         }
     }
 
-    // retorna opção
-    return opcao;
+    return option;
 }
 
-
-
-
-// função principal
 int main ()
 {
-    // valor positivo para satisfazer condição verdadeira do ciclo principal
-    int opcao = 1;
+    // option positive to first interation
+    int option = 1;
 
-    // mensagens iniciais e leitura de valores
-    printf("\n\nBem-Vindo ao Stack Tester\n\n");
+    // welcome message
+    printf("\nWelcome to Stack Tester\n\n");
 
-    // ciclo do programa
-    while (opcao > 0)
+    while (option > 0)
     {
-        // invoca controlador de opções
-        opcao = controladorDeOpcoes();
+        // call controller options
+        option = controllerOptions();
     }
    
     return 0;
